@@ -14,8 +14,8 @@ def main():
     if admin.adminLogin():
         return -1
     path = os.path.join(os.getcwd(), 'allUsers.txt')
-    # f = open(path, 'rb')
-    # allUsers = pickle.load(f)
+    f = open(path, 'rb')
+    allUsers = pickle.load(f)
     allUsers = {}
     atm = ATM(allUsers)
 
@@ -24,7 +24,8 @@ def main():
         # 等待用户的操作
         option = input('请选择业务：')
         if option == '1':
-            atm.createUser()
+            # outer装饰器，装饰createUser
+            atm.outer(atm.createUser)
         elif option == '2':
             atm.searchInfo()
         elif option == '3':
