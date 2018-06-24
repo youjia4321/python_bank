@@ -11,12 +11,19 @@ import random
 class ATM(object):
     def __init__(self, allUsers):
         self.allUsers = allUsers
+        
+    def outer(self, func):  # 简单的装饰器
+        def inner():
+            print('请输入以下要求的个人信息：')
+            func()
+            print('你的银行卡已开户成功，请牢记你的密码和卡号')
+        return inner()
 
     def createUser(self):  # 开户
-        name = input('输入姓名：')
-        idCard = input('输入身份证：')
-        phone = input('输入电话：')
-        prestoreMoney = int(input('输入存款金额：'))
+        name = input('姓名：')
+        idCard = input('身份证：')
+        phone = input('电话：')
+        prestoreMoney = int(input('存款金额：'))
         if prestoreMoney < 0:
             print('存款金额输入有误，开户失败')
             return -1
@@ -30,7 +37,8 @@ class ATM(object):
         card = Card(cardStr, onePasswd, prestoreMoney)
         user = User(name, idCard, phone, card)
         self.allUsers[cardStr] = user
-        print('开户成功，请牢记卡号：%s' % cardStr)
+        print('卡号：%s' % cardStr)
+        time.sleep(2)
 
     def searchInfo(self):  # 查询
         card = input('输入卡号：')
