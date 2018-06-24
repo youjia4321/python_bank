@@ -16,7 +16,6 @@ def main():
     path = os.path.join(os.getcwd(), 'allUsers.txt')
     f = open(path, 'rb')
     allUsers = pickle.load(f)
-    allUsers = {}
     atm = ATM(allUsers)
 
     while True:
